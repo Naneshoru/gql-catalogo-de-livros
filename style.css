@@ -26,7 +26,9 @@ ul {
 li {
   display: inline-flex;
   flex-direction: column-reverse;
+  align-items: center;
   gap: 1rem;
+  flex-grow: 1;
 }
 
 img {
