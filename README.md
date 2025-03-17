@@ -1,3 +1,3 @@
 Estudo consumindo graphql 
 
-![image](https://github.com/user-attachments/assets/6d696ddf-5438-41cf-bd7d-dbe12dedbe74)
+![image](https://github.com/user-attachments/assets/ca427e90-5142-4eee-b3f7-699a7866d10a)
