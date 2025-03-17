@@ -18,6 +18,7 @@ queryFetch(`
       title
       publishedDate
       imageUrl
+      downloadUrl
       author {
         id
         name
@@ -33,6 +34,16 @@ queryFetch(`
     img.src = element.imageUrl
     img.alt = element.title
     img.width = 200
+
+    const handleClick = () => {
+      window.location.href = element.downloadUrl
+    }
+
+    img.addEventListener('click', handleClick)
+
+    li.addEventListener('DOMNodeRemoved', () => {
+      img.removeEventListener('click', handleClick)
+    })
 
     li.appendChild(img)
 
