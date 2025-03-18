@@ -6,7 +6,6 @@ self.addEventListener('install', event => {
         '/index.html',
         '/style.css',
         '/script.js',
-        '/sw.js',
       ])
     }).catch(error => {
       console.error('Erro ao adicionar arquivos ao cache:', error);
