@@ -3,10 +3,10 @@ self.addEventListener('install', event => {
   event.waitUntil(
     caches.open('v1').then(cache => {
       return cache.addAll([
-        '/',
         '/index.html',
         '/style.css',
         '/script.js',
+        '/sw.js',
       ])
     }).catch(error => {
       console.error('Erro ao adicionar arquivos ao cache:', error);
