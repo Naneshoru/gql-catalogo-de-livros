@@ -81,3 +81,18 @@ async function downloadPdf(pdfUrl, fileName) {
       console.error("Download do PDF falhou: ", error);
     });
 }
+
+
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/sw.js')
+    .then(registration => {
+      console.log('Service Worker registrado com sucesso:', registration);
+      console.log('State:', registration.active.state);
+      console.log('Url:', registration.active.scriptURL);
+      console.log('Scope:', registration.scope);
+      console.log('Waiting State:', registration.waiting);
+    })
+    .catch(error => {
+      console.error('Falha ao registrar o Service Worker:', error);
+    });
+}
