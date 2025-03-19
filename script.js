@@ -37,6 +37,7 @@ queryFetch(`
     const img = document.createElement('img');
     img.src = element.imageUrl;
     img.alt = element.title;
+    img.crossOrigin = 'anonymous';
     img.width = 200;
 
     li.appendChild(img);
@@ -96,3 +97,4 @@ if ('serviceWorker' in navigator) {
       console.error('Falha ao registrar o Service Worker:', error);
     });
 }
+
