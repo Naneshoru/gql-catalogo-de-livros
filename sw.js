@@ -78,8 +78,46 @@ self.addEventListener('fetch', event => {
   } else {
     event.respondWith(
       caches.match(event.request).then(cachedResponse => {
-        return cachedResponse || fetch(event.request);
+
+        const fetchPromise = fetch(event.request)
+          .then(async networkResponse => {
+            if (!networkResponse || !networkResponse.ok) {
+              console.error('Resposta da rede inválida:', networkResponse);
+              return cachedResponse || new Response('Recurso não disponível', { status: 404 })
+            }
+
+            // if (shouldCache(event.request)) {
+              const responseClone = networkResponse.clone()
+  
+              const cache = await caches.open('v1')
+              await cache.put(event.request, responseClone);
+            // }
+
+            return networkResponse;
+          })
+          .catch(error => {
+            console.error('Erro ao buscar da rede:', error);
+            return cachedResponse || new Response('Você está offline e o recurso não está no cache.', { status: 503 })
+          });;
+
+        return cachedResponse || fetchPromise
       })
     );
   }
 });
+
+/**
+ * Função para determinar se o recurso deve ser salvo no cache.
+ * Exclui imagens e outros arquivos que já são salvos automaticamente.
+ */
+function shouldCache(request) {
+  const url = request.url;
+
+  if (request.destination === 'image') return false;
+
+  if (url.match(/\.(jpg|jpeg|png|gif|webp|svg)$/)) return false;
+
+  if (request.headers.get('Cache-Control')?.includes('immutable')) return false;
+
+  return true;
+}
